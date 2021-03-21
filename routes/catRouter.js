@@ -5,16 +5,16 @@ const catController = require('../controllers/catController');
 
 
 router.route('/')
-  .get(catController.cat_list_get)
-  .post(catController.cat_post_new_cat);
+.get(catController.cat_list_get)
+.post(catController.cat_post_new_cat);
 
 router.route('/:id')
-  .get(catController.cat_get_by_id)
-  .put((req, res)=> {
+.get(catController.cat_get_by_id)
+.put((req, res)=> {
   console.log('put cat', req.params);
   res.send('put cat');
 })
-  .delete((req, res) => {
+.delete((req, res) => {
   console.log('delete cat', req.params);
   res.send('delete cat');
 });

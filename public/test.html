@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Test HTML page</title>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>Test HTML page</title>
 </head>
-  <body>
-    <h1>Demo</h1>
-    <a href = "/">Link to root of the server</a><br>
-    <a href ="cat">Get cat</a><br>
-    <a href ="cat?sort=age">Cats sorted by age</a>
+<body>
+<h1>Demo page</h1>
+<a href="/">Link to root of the server</a><br>
+<a href="cat">Get all cats</a><br>
+<a href="cat?sort=age">Cats sorted by age</a>
 
-    <form action="cat" method ="post">
-        Name: <input type ="text" name ="name"><br>
-        Age: <input type ="number" name ="age"><br>
-        <select id ="genre" name="genre">
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="robot">Robot Cat</option>
-        </select>
-        <input type="submit">
-    </form>
-  </body>
+<form action="cat" method="post">
+    Name: <input type="text" name="name"><br>
+    Age: <input type="number" name="age"><br>
+    Owner: <select id="owner" name="owner">
+    <option value="1">John Doe</option>
+    <option value="2">Jane Doez</option>
+</select><br>
+    Image: <input type="file" name="filename"><br>
+    Weight: <input type="number" name="weight">
+    <br>
+    <input type="submit">
+</form>
+</body>
 </html>
