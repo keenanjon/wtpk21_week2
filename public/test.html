@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test HTML page</title>
+	<meta charset="UTF-8">
+</head>
+  <body>
+    <h1>Demo</h1>
+    <a href = "/">Link to root of the server</a><br>
+    <a href ="cat">Get cat</a><br>
+    <a href ="cat?sort=age">Cats sorted by age</a>
+
+    <form action="cat" method ="post">
+        Name: <input type ="text" name ="name"><br>
+        Age: <input type ="number" name ="age"><br>
+        <select id ="genre" name="genre">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="robot">Robot Cat</option>
+        </select>
+        <input type="submit">
+    </form>
+  </body>
+</html>
