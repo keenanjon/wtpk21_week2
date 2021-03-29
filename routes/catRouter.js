@@ -7,7 +7,8 @@ const catController = require('../controllers/catController');
 
 router.route('/')
 .get(catController.cat_list_get)
-.post(upload.single('filename'), catController.cat_post_new_cat);
+.post(upload.single('filename'), catController.cat_post_new_cat)
+.put(catController.cat_put_update_cat2);
 
 router.route('/:id')
 .get(catController.cat_get_by_id)

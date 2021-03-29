@@ -43,6 +43,13 @@ const cat_put_update_cat = async (req, res) => {
   res.send(`cat updated ${success}`);
 };
 
+const cat_put_update_cat2 = async (req, res) => {
+  console.log('update cat using html form', req.body);
+  const cat = req.body;
+  const success = await catModel.updateCat(cat);
+  res.send(`cat updated ${success}`);
+};
+
 const cat_delete_cat = async (req, res) => {
   console.log('delete cat', req.params.id);
   const success = await catModel.deleteCat(req.params.id);
@@ -54,5 +61,6 @@ module.exports = {
   cat_get_by_id,
   cat_post_new_cat,
   cat_put_update_cat,
+  cat_put_update_cat2,
   cat_delete_cat,
 };

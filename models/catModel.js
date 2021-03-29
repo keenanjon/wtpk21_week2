@@ -31,11 +31,20 @@ const insertCat = async (cat) => {
   return row.insertId;
 };
 
+/*
 const updateCat = async (cat) => {
   const [row] = await promisePool.execute('UPDATE wop_cat SET name=?, age=?, weight=? WHERE cat_id=?', [cat.name, cat.age, cat.weight, cat.id]);
   console.log('update row', row);
   return true;
 };
+
+ */
+
+const updateCat = async (cat) => {
+  const [row] = await promisePool.execute('UPDATE `wop_cat` SET `name`=?, `age`=?, `weight`=?, `owner`=? WHERE cat_id=?', [cat.name, cat.age, cat.weight, cat.owner, cat.id]);
+  console.log('update row', row);
+  return true;
+}
 
 const deleteCat = async (id) => {
   const [row] = await promisePool.execute('DELETE FROM wop_cat WHERE cat_id=?', [id]);
