@@ -1,4 +1,4 @@
-//'use strict'; module is strict by default;
+//'use strict'; module is strict by default 😉
 const express = require('express');
 const router = express.Router();
 const multer  = require('multer');

@@ -7,7 +7,6 @@ const promisePool = pool.promise();
 const getAllCats = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    //const [rows] = await promisePool.query('SELECT * FROM wop_cat');
     const [rows] = await promisePool.query('SELECT wop_cat.*, wop_user.name AS ownername FROM wop_cat INNER JOIN wop_user ON wop_cat.owner = wop_user.user_id');
     console.log('something back from db?', rows);
     return rows;
@@ -19,7 +18,6 @@ const getAllCats = async () => {
 const getAllCatsSort = async (order) => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    //const [rows] = await promisePool.query(`SELECT * FROM wop_cat ORDER BY ${order}`);
     const [rows] = await promisePool.query(`SELECT wop_cat.*, wop_user.name AS ownername FROM wop_cat INNER JOIN wop_user ON wop_cat.owner = wop_user.user_id ${order}`);
     return rows;
   } catch (e) {
@@ -45,12 +43,10 @@ const deleteCat = async (id) => {
   return true;
 };
 
-
 module.exports = {
   getAllCats,
   getAllCatsSort,
   insertCat,
   updateCat,
   deleteCat,
-
 };
