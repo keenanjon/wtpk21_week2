@@ -1,60 +1,65 @@
-// Model (usually gets data from database, in this case data is hard coded)
 'use strict';
-
 const pool = require('../database/db');
 const promisePool = pool.promise();
 
 const getAllCats = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query('SELECT wop_cat.*, wop_user.name AS ownername FROM wop_cat INNER JOIN wop_user ON wop_cat.owner = wop_user.user_id');
-    console.log('something back from db?', rows);
+    const [rows] = await promisePool.execute('SELECT * FROM wop_cat');
     return rows;
   } catch (e) {
-    console.error('error', e.message);
+    console.error('catModel:', e.message);
   }
 };
 
-const getAllCatsSort = async (order) => {
+const getCat = async (id) => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.query(`SELECT wop_cat.*, wop_user.name AS ownername FROM wop_cat INNER JOIN wop_user ON wop_cat.owner = wop_user.user_id ${order}`);
-    return rows;
+    console.log('catModel getCat', id);
+    const [rows] = await promisePool.execute('SELECT * FROM wop_cat WHERE cat_id = ?', [id]);
+    return rows[0];
   } catch (e) {
-    console.error('error', e.message);
+    console.error('catModel:', e.message);
   }
 };
 
-const insertCat = async (cat) => {
-  const [row] = await promisePool.execute('INSERT INTO wop_cat (name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?)', [cat.name, cat.age, cat.weight, cat.owner, cat.filename]);
-  console.log('insert row', row);
-  return row.insertId;
+const insertCat = async (req) => {
+  try {
+    const [rows] = await promisePool.execute('INSERT INTO wop_cat (name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?);',
+      [req.body.name, req.body.age, req.body.weight, req.body.owner, req.file.filename]);
+    console.log('catModel insert:', rows);
+    return rows.insertId;
+  } catch (e) {
+    console.error('catModel insertCat:', e);
+    return 0;
+  }
 };
 
-/*
-const updateCat = async (cat) => {
-  const [row] = await promisePool.execute('UPDATE wop_cat SET name=?, age=?, weight=? WHERE cat_id=?', [cat.name, cat.age, cat.weight, cat.id]);
-  console.log('update row', row);
-  return true;
+const updateCat = async (id, req) => {
+  try {
+    const [rows] = await promisePool.execute('UPDATE wop_cat SET name = ?, age = ?, weight = ? WHERE cat_id = ?;',
+    [req.body.name, req.body.age, req.body.weight, id]);
+    console.log('catModel update:', rows);
+    return rows.affectedRows === 1;
+  } catch (e) {
+    return false;
+  }
 };
 
- */
-
-const updateCat = async (cat) => {
-  const [row] = await promisePool.execute('UPDATE `wop_cat` SET `name`=?, `age`=?, `weight`=?, `owner`=? WHERE cat_id=?', [cat.name, cat.age, cat.weight, cat.owner, cat.id]);
-  console.log('update row', row);
-  return true;
-}
-
+//TODO: delete function. Consider no return needed? just best effort...
 const deleteCat = async (id) => {
-  const [row] = await promisePool.execute('DELETE FROM wop_cat WHERE cat_id=?', [id]);
-  console.log('delete row', row);
-  return true;
+  try {
+    console.log('catModel deleteCat', id);
+    const [rows] = await promisePool.execute('DELETE FROM wop_cat WHERE cat_id = ?', [id]);
+    return rows.affectedRows === 1;
+  } catch (e) {
+    console.error('catModel:', e.message);
+  }
 };
 
 module.exports = {
   getAllCats,
-  getAllCatsSort,
+  getCat,
   insertCat,
   updateCat,
   deleteCat,
