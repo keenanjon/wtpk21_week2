@@ -15,7 +15,7 @@ const getUser = async (id) => {
   try {
     console.log('userModel getUser', id);
     const [rows] = await promisePool.execute('SELECT * FROM wop_user WHERE user_id = ?', [id]);
-    return rows[0];
+    return rows;
   } catch (e) {
     console.error('userModel:', e.message);
   }

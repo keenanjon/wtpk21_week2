@@ -179,8 +179,9 @@ loginForm.addEventListener('submit', async (evt) => {
     },
     body: JSON.stringify(data),
   };
-
+  //was:
   const response = await fetch(url + '/auth/login', fetchOptions);
+  //const response = await fetch(url + '/login', fetchOptions);
   const json = await response.json();
   console.log('login response', json);
   if (!json.user) {
@@ -190,6 +191,7 @@ loginForm.addEventListener('submit', async (evt) => {
     loginWrapper.style.display = 'none';
     logOut.style.display = 'block';
     getCat();
+    //was getUsers();
     getUsers();
   }
 });
@@ -199,5 +201,6 @@ if (sessionStorage.getItem('token')) {
   loginWrapper.style.display = 'none';
   logOut.style.display = 'block';
   getCat();
+  //was getUsers();
   getUsers();
 }

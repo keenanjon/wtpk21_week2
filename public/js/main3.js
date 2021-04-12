@@ -190,6 +190,7 @@ loginForm.addEventListener('submit', async (evt) => {
     loginWrapper.style.display = 'none';
     logOut.style.display = 'block';
     getCat();
+    //vai ilman s
     getUsers();
   }
 });
