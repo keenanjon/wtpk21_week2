@@ -244,6 +244,7 @@ addUserForm.addEventListener('submit', async (evt) => {
   const json = await response.json();
   console.log('user add response', json);
   // save token
+  // TODO: check if json is error!!! and stop (don't try to get cats)
   sessionStorage.setItem('token', json.token);
   // show/hide forms + cats
   loginWrapper.style.display = 'none';

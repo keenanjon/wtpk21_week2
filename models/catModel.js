@@ -1,3 +1,4 @@
+
 'use strict';
 const pool = require('../database/db');
 const promisePool = pool.promise();
@@ -5,7 +6,7 @@ const promisePool = pool.promise();
 const getAllCats = async () => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-    const [rows] = await promisePool.execute('SELECT * FROM wop_cat');
+    const [rows] = await promisePool.execute('SELECT cat_id, wop_cat.name, age, weight, owner, filename, user_id, coords, wop_user.name AS ownername FROM wop_cat LEFT JOIN wop_user ON owner = user_id');
     return rows;
   } catch (e) {
     console.error('catModel:', e.message);
@@ -25,20 +26,20 @@ const getCat = async (id) => {
 
 const insertCat = async (req) => {
   try {
-    const [rows] = await promisePool.execute('INSERT INTO wop_cat (name, age, weight, owner, filename) VALUES (?, ?, ?, ?, ?);',
-      [req.body.name, req.body.age, req.body.weight, req.body.owner, req.file.filename]);
+    const [rows] = await promisePool.execute('INSERT INTO wop_cat (name, age, weight, owner, filename, coords) VALUES (?, ?, ?, ?, ?, ?);',
+        [req.body.name, req.body.age, req.body.weight, req.body.owner, req.file.filename, req.body.coords]);
     console.log('catModel insert:', rows);
     return rows.insertId;
   } catch (e) {
-    console.error('catModel insertCat:', e);
-    return 0;
+    console.error('insertCat:', e.message);
+    throw new Error('insertCat failed');
   }
 };
 
 const updateCat = async (id, req) => {
   try {
     const [rows] = await promisePool.execute('UPDATE wop_cat SET name = ?, age = ?, weight = ? WHERE cat_id = ?;',
-    [req.body.name, req.body.age, req.body.weight, id]);
+        [req.body.name, req.body.age, req.body.weight, id]);
     console.log('catModel update:', rows);
     return rows.affectedRows === 1;
   } catch (e) {
