@@ -7,7 +7,7 @@ const login = (req, res) => {
     if (err || !user) {
       return res.status(400).json({
         message: 'Something is not right',
-        user   : user,
+        user: user,
       });
     }
     req.login(user, {session: false}, (err) => {
@@ -15,12 +15,19 @@ const login = (req, res) => {
         res.send(err);
       }
       // generate a signed son web token with the contents of user object and return it in the response
-      const token = jwt.sign(user, 'fdsftr5dfdgdfavdfavfgt54tdv');
+      const token = jwt.sign(user, 'gfdrtfyui987654rtyuio8765ewwertyu');
+      console.log('login', {user, token});
       return res.json({user, token});
     });
   })(req, res);
 };
 
+const logout = (req, res) => {
+  req.logout();
+  res.json({message: 'logout'});
+};
+
 module.exports = {
   login,
+  logout,
 };
