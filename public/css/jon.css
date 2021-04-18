@@ -232,6 +232,9 @@ section:hover button:last-child {
 
 
 @media only screen and (max-width: 1150px) {
+    h2 {
+        font-size: 27px;
+    }
     .child1 {
         justify-content: center;
     }
@@ -244,6 +247,10 @@ section:hover button:last-child {
 
 
 @media only screen and (max-width: 1050px) {
+
+    h2 {
+        font-size: 25px;
+    }
 
     .card {
         width: 423px;
@@ -268,6 +275,14 @@ section:hover button:last-child {
 
 @media only screen and (max-width: 800px) {
 
+    h2 {
+        font-size: 23px;
+    }
+
+    .heart {
+        font-size: 15px;
+    }
+
     .card {
         width: 371px;
         height: 371px;
@@ -279,6 +294,11 @@ section:hover button:last-child {
 @media only screen and (max-width: 750px) {
     .parent {
         flex-direction: column;
+    }
+
+    .heart {
+        font-size: 13px;
+        margin-top: 1%;
     }
 
     .card {
