@@ -30,6 +30,7 @@ router.get('/', catController.cat_list_get);
 router.post('/',
     upload.single('cat'),
     testFile,
+    catController.make_thumbnail,
     body('name').isLength({min: 1}),
     body('age').isLength({min: 1}).isNumeric(),
     body('weight').isLength({min: 1}).isNumeric(),
