@@ -1,3 +1,4 @@
+
 'use strict';
 const express = require('express');
 const cors = require('cors');
@@ -7,7 +8,17 @@ const userRoute = require('./routes/userRoute');
 const passport = require('./utils/pass');
 const authRoute = require('./routes/authRoute');
 const app = express();
-const port = 3000;
+//const port = 3000;
+
+const port = process.env.HTTP_PORT || 3000;
+
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+if (process.env.NODE_ENV === 'production') {
+  require('./utils/production')(app, port);
+} else {
+  require('./utils/localhost')(app, process.env.HTTPS_PORT || 8000, port);
+}
+
 
 app.use(cors());
 
