@@ -8,14 +8,32 @@ const {getCoordinates} = require('../utils/imageMeta');
 const cats = catModel.cats;
 
 const cat_list_get = async (req, res) => {
-  const cats = await catModel.getAllCats();
-  res.json(cats);
+  try {
+    console.log('get all cats from controllers', req.query);
+    if (req.query.sort === 'age') {
+      const catsSort = await catModel.getAllCatsSort('age');
+      res.json(catsSort);
+      return;
+    } else if (req.query.sort === 'name') {
+      const catsSort = await catModel.getAllCatsSort('name');
+      res.json(catsSort);
+      return;
+    }
+    const cats = await catModel.getAllCats();
+    res.json(cats);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
 };
 
 const cat_get_by_id = async (req, res) => {
-  console.log('catController: http get cat with path param', req.params);
-  const cat = await catModel.getCat(req.params.id);
-  res.json(cat);
+  try {
+    console.log('get cat by id', req.params.id);
+    const [cat] = await catModel.getCatById(req.params.id);
+    res.json(cat);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
 };
 
 const cat_create = async (req, res) => {
@@ -50,8 +68,12 @@ const cat_update = async (req, res) => {
 };
 
 const cat_delete = async (req, res) => {
-  const deleteOk = await catModel.deleteCat(req.params.id);
-  res.json(deleteOk);
+  try {
+    const deleteOk = await catModel.deleteCat(req.params.id);
+    res.send(`cat terminated... ${updateOk}`);
+  } catch (e) {
+    res.status(400).json({error: e.message});
+  }
 };
 
 const make_thumbnail = async (req, res, next) => {

@@ -25,7 +25,7 @@ const user_create = async (req, res, next) => {
   }
   //here we will create a user with data comming from req...
   console.log('userController user_create', req.body);
-  //hasing password before insert into database
+  //hashing password before insert into database
   const user = {};
   user.name = req.body.name;
   user.username = req.body.username;
