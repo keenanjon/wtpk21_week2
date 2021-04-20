@@ -57,6 +57,26 @@ const cat_create = async (req, res) => {
   }
 };
 
+
+const cat_put_update_cat = async (req, res) => {
+  // Finds the validation errors in this request and wraps them in an object with handy functions
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  console.log('put cat', req.body);
+  const cat = req.body;
+  cat.id = req.params.id;
+  const success = await catModel.updateCat(cat);
+  res.send(`cat updated ${success}`)
+};
+const cat_put_update_cat2 = async (req, res) => {
+  console.log('update cat using html form', req.body);
+  const cat = req.body;
+  const success = await catModel.updateCat(cat);
+  res.send(`cat updated ${success}`);
+};
+/*
 const cat_update = async (req, res) => {
   // Finds the validation errors in this request and wraps them in an object with handy functions
   const errors = validationResult(req);
@@ -66,6 +86,7 @@ const cat_update = async (req, res) => {
   const updateOk = await catModel.updateCat(req.params.id, req);
   res.send(`updated... ${updateOk}`);
 };
+ */
 
 const cat_delete = async (req, res) => {
   try {
@@ -91,7 +112,8 @@ module.exports = {
   cat_list_get,
   cat_get_by_id,
   cat_create,
-  cat_update,
+  cat_put_update_cat,
+  cat_put_update_cat2,
   cat_delete,
   make_thumbnail,
 };

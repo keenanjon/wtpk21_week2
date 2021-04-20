@@ -36,6 +36,13 @@ const insertCat = async (req) => {
   }
 };
 
+const updateCat = async (cat) => {
+  const [row] = await promisePool.execute('UPDATE `wop_cat` SET `name`=?, `age`=?, `weight`=?, `owner`=? WHERE cat_id=?', [cat.name, cat.age, cat.weight, cat.owner, cat.id]);
+  console.log('update row', row);
+  return true;
+}
+
+/*
 const updateCat = async (id, req) => {
   try {
     const [rows] = await promisePool.execute('UPDATE wop_cat SET name = ?, age = ?, weight = ? WHERE cat_id = ?;',
@@ -46,6 +53,7 @@ const updateCat = async (id, req) => {
     return false;
   }
 };
+ */
 
 
 const deleteCat = async (id) => {
