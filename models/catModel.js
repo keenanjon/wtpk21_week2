@@ -37,9 +37,13 @@ const insertCat = async (req) => {
 };
 
 const updateCat = async (cat) => {
-  const [row] = await promisePool.execute('UPDATE `wop_cat` SET `name`=?, `age`=?, `weight`=?, `owner`=? WHERE cat_id=?', [cat.name, cat.age, cat.weight, cat.owner, cat.id]);
-  console.log('update row', row);
-  return true;
+  try{
+    const [row] = await promisePool.execute('UPDATE `wop_cat` SET `name`=?, `age`=?, `weight`=?, `owner`=? WHERE cat_id=?', [cat.name, cat.age, cat.weight, cat.owner, cat.id]);
+    console.log('update row', row);
+    return true;
+  }catch (e) {
+    throw new Error('updateCat failed')
+  }
 }
 
 /*

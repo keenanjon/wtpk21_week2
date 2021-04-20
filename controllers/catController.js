@@ -64,17 +64,27 @@ const cat_put_update_cat = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  console.log('put cat', req.body);
-  const cat = req.body;
-  cat.id = req.params.id;
-  const success = await catModel.updateCat(cat);
-  res.send(`cat updated ${success}`)
+
+  try {
+    console.log('put cat', req.body);
+    const cat = req.body;
+    cat.id = req.params.id;
+    const success = await catModel.updateCat(cat);
+    res.send(`cat updated ${success}`);
+  }catch (e) {
+    res.status(400).json({error: e.message})
+  }
 };
+
 const cat_put_update_cat2 = async (req, res) => {
-  console.log('update cat using html form', req.body);
-  const cat = req.body;
-  const success = await catModel.updateCat(cat);
-  res.send(`cat updated ${success}`);
+  try {
+    console.log('update cat using html form', req.body);
+    const cat = req.body;
+    const success = await catModel.updateCat(cat);
+    res.send(`cat updated ${success}`);
+  }catch (e) {
+    res.status(400).json({error: e.message})
+  }
 };
 /*
 const cat_update = async (req, res) => {

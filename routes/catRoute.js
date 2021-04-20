@@ -36,6 +36,9 @@ router.post('/',
     body('weight').isLength({min: 1}).isNumeric(),
     body('owner').isLength({min: 1}).isNumeric(),
     catController.cat_create);
+//Uutta:
+router.route('/')
+  .put(catController.cat_put_update_cat2);
 
 router.get('/:id', catController.cat_get_by_id);
 router.put('/:id',
@@ -43,7 +46,8 @@ router.put('/:id',
     body('age').isLength({min: 1}).isNumeric(),
     body('weight').isLength({min: 1}).isNumeric(),
     body('owner').isLength({min: 1}).isNumeric(),
-    catController.cat_update);
+    //catController.cat_update);
+    catController.cat_put_update_cat);
 router.delete('/:id', catController.cat_delete);
 
 module.exports = router;
