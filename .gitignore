@@ -70,6 +70,12 @@ Temporary Items
 ### Node ###
 .env
 
+
+###
+certrequest.csr
+ssl-key.pem
+ssl-cert.pem
+
 ### Node ###
 # Logs
 logs
